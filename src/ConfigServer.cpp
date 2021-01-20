@@ -106,30 +106,3 @@ void setupConfigServer(ESP8266WebServer &server, ConfigServerConfig &cfg, EEPROM
     server.send(200, "application/json", json);
   });
 }
-
-void ConfigServer::joinWifi(const char *wifi_ssid, const char *wifi_pass,
-                         ConfigServerConfig &cfg, ESP8266WebServer &server, EEPROMClass &eeprom) {
-  uint8_t tries = 0;
-
-  WiFi.mode(WIFI_STA);
-  while (WiFi.status() != WL_CONNECTED) {
-#ifdef DEBUG
-    Serial.println("Connecting to WIFI:");
-    Serial.println(wifi_ssid);
-#endif
-    if (tries % 10 == 0) {
-      WiFi.begin(wifi_ssid, wifi_pass);
-    }
-
-    delay(1000);
-    tries++;
-  }
-
-#ifdef DEBUG
-  Serial.println("Connected to WIFI");
-  Serial.println(WiFi.localIP());
-#endif
-
-  setupConfigServer(server, cfg, eeprom);
-  server.begin();
-}
