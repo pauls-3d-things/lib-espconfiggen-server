@@ -3,6 +3,6 @@
 #include "ConfigServerConfig.h"
 #include <ESP8266WebServer.h>
 
-void setupConfigServer(ESP8266WebServer &server, ConfigServerConfig &cfg);
+void setupConfigServer(ESP8266WebServer &server, ConfigServerConfig &cfg, EEPROMClass &eeprom);
 
 #endif
